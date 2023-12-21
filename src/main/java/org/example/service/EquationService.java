@@ -2,6 +2,8 @@ package org.example.service;
 
 import org.example.repository.EquationRepository;
 
+import static org.example.parser.EquationParser.evaluateExpression;
+
 public class EquationService  {
 
     EquationRepository repository = new EquationRepository();
@@ -18,4 +20,7 @@ public class EquationService  {
         repository.findEquationsByRoot(root);
     }
 
+    public void evaluateEquations(String equation, double value) {
+        evaluateExpression(equation, value);
+    }
 }
