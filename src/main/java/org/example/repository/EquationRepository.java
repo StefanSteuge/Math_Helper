@@ -10,8 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.sql.DriverManager.getConnection;
-
 public class EquationRepository {
 
     private static final String JDBC_URL = "jdbc:postgresql://localhost:5432/mathhelper";
@@ -47,6 +45,7 @@ public class EquationRepository {
     }
 
     public List<Equation> findEquationsByRoot(double root) {
+
         List<Equation> equations = new ArrayList<>();
 
         String sql = "SELECT e.id, e.equation_string FROM equations e " +
@@ -59,13 +58,13 @@ public class EquationRepository {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Equation equation = new Equation();
-                    equation.setId((long) resultSet.getInt("id"));
+                    equation.setId(resultSet.getInt("id"));
                     equation.setEquation(resultSet.getString("equation_string"));
                     equations.add(equation);
                 }
             }
         } catch (SQLException e) {
-            e.getCause();
+            e.getCause().printStackTrace();
         }
 
         return equations;
